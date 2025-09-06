@@ -3,325 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прощание</title>
+    <title>Статичная веб-страница</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-            height: 100vh;
-            position: relative;
-            background: #1a1a2e;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-color: #f4f4f4;
         }
-
-        /* Фоновое изображение с эффектом */
-        .background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(26, 26, 46, 0.9), rgba(39, 39, 68, 0.8));
-            z-index: -2;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
-            z-index: -1;
-            animation: pulseBackground 4s ease-in-out infinite;
-        }
-
-        @keyframes pulseBackground {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        /* Основные стили */
+        
         .container {
             max-width: 800px;
             margin: 0 auto;
+            background: white;
             padding: 20px;
-            position: relative;
-            z-index: 1;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        .heart-container {
-            display: flex;
-            justify-content: center;
-            margin: 50px 0 40px;
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
         }
-
-        /* Простое сердце */
-        .simple-heart {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            animation: heartbeat 2s ease-in-out infinite;
+        
+        .content-box {
+            background: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
         }
-
-        .heart-piece {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #e74c3c;
-            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
         }
-
-        .heart-piece.left {
-            top: 0;
-            left: 0;
-            border-radius: 50px 0 0 0;
-            transform-origin: right bottom;
-        }
-
-        .heart-piece.right {
-            top: 0;
-            right: 0;
-            border-radius: 0 50px 0 0;
-            transform-origin: left bottom;
-        }
-
-        /* Анимация биения сердца */
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* Анимация разрыва */
-        .heart-broken .heart-piece.left {
-            transform: translate(-15px, -15px) rotate(-45deg);
-            opacity: 0.8;
-        }
-
-        .heart-broken .heart-piece.right {
-            transform: translate(15px, -15px) rotate(45deg);
-            opacity: 0.8;
-        }
-
-        /* Эффект после разрыва */
-        .heart-broken {
-            animation: brokenPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes brokenPulse {
-            0%, 100% { 
-                transform: scale(1) rotate(0deg);
-                filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.5));
-            }
-            50% { 
-                transform: scale(1.05) rotate(5deg);
-                filter: drop-shadow(0 0 20px rgba(231, 76, 60, 0.8));
-            }
-        }
-
-        .title {
-            text-align: center;
-            color: #ecf0f1;
-            font-size: 3rem;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .message-container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .message p {
-            color: #ecf0f1;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
-            text-align: justify;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .message .last-message {
-            font-weight: bold;
-            color: #e74c3c;
-            margin-top: 30px;
-            font-size: 1.2rem;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
-        }
-
-        /* Слезы */
-        .tear {
-            position: absolute;
-            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
-            width: 3px;
-            height: 18px;
-            border-radius: 50%;
-            animation: tearFall 4s linear infinite;
-            z-index: -1;
-            filter: blur(0.5px);
-        }
-
-        @keyframes tearFall {
-            0% {
-                transform: translateY(-100px) rotate(10deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translateY(100vh) rotate(-10deg);
-                opacity: 0;
-            }
-        }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .simple-heart {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .heart-piece {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
-            
-            .message p {
-                font-size: 1rem;
-            }
-            
-            .message-container {
-                padding: 20px;
-            }
+        
+        .button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
-    <!-- Фоновое изображение -->
-    <div class="background-image"></div>
-    <div class="overlay"></div>
-    
     <div class="container">
-        <div class="heart-container">
-            <!-- Простое сердце -->
-            <div class="simple-heart" id="simpleHeart">
-                <div class="heart-piece left"></div>
-                <div class="heart-piece right"></div>
-            </div>
+        <h1>Простая статичная страница</h1>
+        
+        <p>Это пример веб-страницы без каких-либо анимаций и динамических эффектов.</p>
+        
+        <div class="content-box">
+            <p>Все элементы на этой странице статичны. Они отображаются в своем окончательном виде без переходов, преобразований или анимированных изменений.</p>
         </div>
         
-        <div class="message-container">
-            <h1 class="title">...</h1>
-            
-            <div class="message">
-                <p>Привет, спасибо тебе за опыт, который я приобрел с тобой, и многое понял. Но, когда совершал ошибку, я ее повторял, вместо того чтобы быть адекватным. Я не ценил то, что ты мне дала (информацию), я забывал, что ты говорила, и много всего хотел. В конечном итоге имеем, что имеем. Я начал понимать, как это больно, слишком поздно, и ты решила расстаться.</p>
-                
-                <p>Когда был август, я начал понимать ту боль, которую ты чувствовала. Я пытался всё сделать лучше, а получилось хуже.</p>
-                
-                <p>Тебе хотелось сделать пирсинг, а я начал писать, что это плохо. Скорее всего, если бы я такое не писал, так бы всё и осталось, но меня раздражает пирсинг, и я написал, что лучше без него ты будешь выглядеть. Это закончилось плохо... Надеюсь, твой будущий муж / парень будет не против этого, а меня бесят пирсинги.</p>
-
-                <p>Может, зря поспешили, могли позже расстаться, но ты так решила, что больше не встречаемся. У меня в переходном возрасте было всё плохо, я всем надоедал, всех бесил, со всеми спорил. Сейчас уже этого почти нет, и я не знаю, что дальше делать. Может, ты знаешь, что делать?</p>
-                
-                <p>Больше я тебе не буду мешать жить и развиваться, не буду тянуть вниз, как Лиза (про Сашу не знаю). Не будешь тратить на меня нервы и больше не будешь ссориться со мной, будешь учиться, чтобы поступить. Не будешь мне писать, что даст тебе больше времени на учебу. Будешь спокойна и не будешь тратить нервы, чтобы что-то мне сказать.</p>
-                
-                <p class="last-message">Можешь, пожалуйста, сказать, будешь со мной общаться или полностью отдаляемся и не будем обращать внимание друг на друга? Напиши в ТГ.</p>
-            </div>
-        </div>
+        <img src="https://via.placeholder.com/800x400" alt="Пример изображения">
+        
+        <p>Кнопки и ссылки не имеют эффектов наведения:</p>
+        <a href="#" class="button">Обычная кнопка</a>
+        
+        <h2>Список элементов</h2>
+        <ul>
+            <li>Первый элемент списка</li>
+            <li>Второй элемент списка</li>
+            <li>Третий элемент списка</li>
+        </ul>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const simpleHeart = document.getElementById('simpleHeart');
-            
-            // Запускаем анимацию сердца через 1 секунду
-            setTimeout(() => {
-                animateHeart();
-            }, 1000);
-            
-            // Анимация разбивания сердца
-            function animateHeart() {
-                // Сначала бьется нормально
-                simpleHeart.style.animation = 'heartbeat 2s ease-in-out';
-                
-                // Через 3 секунды разрываем
-                setTimeout(() => {
-                    simpleHeart.classList.add('heart-broken');
-                    
-                    // Создаем слезы после разбития сердца
-                    setTimeout(() => {
-                        createTears();
-                    }, 500);
-                }, 3000);
-            }
-            
-            // Создание падающих слез
-            function createTears() {
-                const tearCount = 20;
-                
-                for (let i = 0; i < tearCount; i++) {
-                    setTimeout(() => {
-                        createSingleTear();
-                    }, i * 150);
-                }
-                
-                // Продолжаем создавать слезы
-                setInterval(() => {
-                    createSingleTear();
-                }, 1000);
-            }
-            
-            // Создание одной слезы
-            function createSingleTear() {
-                const body = document.body;
-                const tear = document.createElement('div');
-                tear.classList.add('tear');
-                
-                // Случайная позиция по горизонтали
-                const leftPos = 30 + Math.random() * 40;
-                tear.style.left = leftPos + 'vw';
-                
-                // Случайная задержка
-                const animationDelay = Math.random() * 2;
-                tear.style.animationDelay = animationDelay + 's';
-                
-                // Случайная скорость падения
-                const animationDuration = 3 + Math.random() * 2;
-                tear.style.animationDuration = animationDuration + 's';
-                
-                body.appendChild(tear);
-                
-                // Удаляем слезу после завершения анимации
-                setTimeout(() => {
-                    if (tear.parentNode) {
-                        tear.parentNode.removeChild(tear);
-                    }
-                }, (animationDuration + animationDelay) * 1000);
-            }
-        });
-    </script>
 </body>
-          </html>
+</html>
