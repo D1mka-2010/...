@@ -1,154 +1,526 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прощание</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: #e6e6e6;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #ffffff;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .message {
-            font-size: 1.1rem;
-        }
-
-        .message p {
-            margin-bottom: 25px;
-            text-align: justify;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .message p::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #e74c3c;
-            font-size: 1.5rem;
-            top: -2px;
-        }
-
-        .message p:first-child::before {
-            content: "💔";
-            font-size: 1.2rem;
-        }
-
-        .last-message {
-            background: linear-gradient(45deg, #e74c3c, #f39c12);
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 35px !important;
-            text-align: center;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
-        }
-
-        .last-message::before {
-            content: "📱";
-            margin-right: 10px;
-            font-size: 1.3rem;
-        }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-                margin: 10px;
-            }
-            
-            .title {
-                font-size: 2rem;
-                margin-bottom: 30px;
-            }
-            
-            .message {
-                font-size: 1rem;
-            }
-            
-            .message p {
-                padding-left: 15px;
-            }
-            
-            .last-message {
-                padding: 20px 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .title {
-                font-size: 1.8rem;
-            }
-            
-            .container {
-                padding: 25px 15px;
-            }
-            
-            .message p {
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Космос — анимации, истории и игры</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #060814;
+      --bg2:#0A0F24;
+      --accent:#7cf0ff;
+      --accent2:#FF7CF0;
+      --text:#EAF7FF;
+      --muted:#9fbad0;
+      --card:#0d1330;
+      --good:#59d36a;
+      --bad:#ff5e6b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:radial-gradient(1200px at 80% 10%, #0b163a, var(--bg));color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    a{color:var(--accent)}
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:99;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(90deg, rgba(10,15,36,.75), rgba(6,8,20,.65));
+      border-bottom: 1px solid rgba(124,240,255,0.12);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      max-width:1100px;margin:0 auto;padding:10px 16px;
+    }
+    .logo{
+      display:flex;align-items:center;gap:10px;font-family:Orbitron;font-weight:700;letter-spacing:.8px
+    }
+    .logo .dot{width:10px;height:10px;border-radius:50%;background:conic-gradient(from 120deg,#7cf0ff,#ff7cf0,#7cf0ff)}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      padding:10px 14px;border:1px solid rgba(124,240,255,0.18);
+      color:var(--text);background:linear-gradient(180deg, rgba(20,30,70,.6), rgba(8,12,30,.6));
+      border-radius:10px;cursor:pointer;transition:.2s transform,.2s box-shadow;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(124,240,255,.08)}
+    .btn.accent{border-color:rgba(255,124,240,0.28)}
+    /* Hero */
+    .hero{
+      position:relative;overflow:hidden;
+      max-width:1100px;margin:30px auto 24px;padding:20px 16px 80px;
+    }
+    h1{font-family:Orbitron;font-size:40px;margin:10px 0 6px}
+    .subtitle{color:var(--muted);max-width:720px;margin-bottom:16px}
+    .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    /* Canvas bg */
+    #starfield{position:fixed;inset:0;z-index:-2}
+    .glowGradient{
+      position:fixed;inset:0;z-index:-3;
+      background: radial-gradient(800px at 20% 80%, rgba(124,240,255,.12), transparent),
+                  radial-gradient(900px at 80% 10%, rgba(255,124,240,.12), transparent);
+    }
+    /* Floating astronaut */
+    .astronaut{
+      position:absolute;right:24px;top:-10px;width:140px;height:140px;
+      background: radial-gradient(70px at 50% 55%, #e8eef7, #b7c5db);
+      border-radius:50%;box-shadow:0 16px 40px rgba(255,124,240,.18);
+      animation: float 6s ease-in-out infinite;
+    }
+    .astronaut::after{
+      content:"";position:absolute;left:25px;top:18px;
+      width:90px;height:90px;border-radius:50%;
+      background: radial-gradient(40px at 40% 40%, #1a264a, #0a132e);
+      box-shadow: inset 0 0 10px rgba(124,240,255,.25);
+    }
+    @keyframes float{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-12px)}
+      100%{transform:translateY(0)}
+    }
+    /* Orbiting planets */
+    .orbit{position:absolute;left:-60px;bottom:-30px;width:260px;height:260px;border-radius:50%;
+      border:1px dashed rgba(124,240,255,.2)}
+    .planet{
+      position:absolute;width:28px;height:28px;border-radius:50%;
+      background: radial-gradient(12px at 40% 40%, #7cf0ff, #3b77aa);
+      box-shadow:0 0 20px rgba(124,240,255,.5);
+      animation: orbit 12s linear infinite;
+      transform-origin: 130px 130px;
+    }
+    .planet.p2{background:radial-gradient(12px at 40% 40%, #ff7cf0, #8e3b77);animation-duration:18s}
+    @keyframes orbit{
+      from{transform:rotate(0deg) translate(130px)}
+      to{transform:rotate(360deg) translate(130px)}
+    }
+    /* Sections */
+    section{
+      max-width:1100px;margin:0 auto;padding:22px 16px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(13,19,48,.9), rgba(8,12,30,.9));
+      border:1px solid rgba(124,240,255,.12);
+      border-radius:16px;padding:16px;margin:10px 0;position:relative;overflow:hidden;
+    }
+    .card h3{font-family:Orbitron;margin:0 0 8px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(124,240,255,.18);color:var(--muted);margin-right:8px;margin-bottom:8px}
+    /* Game area */
+    .games{margin-top:18px}
+    .game-select{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .game{
+      display:none;background:linear-gradient(180deg, rgba(15,22,60,.9), rgba(8,12,30,.9));
+      border:1px solid rgba(124,240,255,.12);border-radius:16px;padding:12px;
+    }
+    .game.active{display:block}
+    canvas.game-canvas{width:100%;max-width:900px;height:420px;background:#020410;border-radius:12px;border:1px solid rgba(124,240,255,.15)}
+    .status{margin-top:10px;color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px}
+    .good{background:rgba(89,211,106,.15);border:1px solid rgba(89,211,106,.4);color:#a8efb3}
+    .bad{background:rgba(255,94,107,.15);border:1px solid rgba(255,94,107,.4);color:#ffc2c9}
+    .accentText{color:var(--accent)}
+    .footer{color:var(--muted);text-align:center;padding:30px 16px}
+    /* Subtle star sparkles */
+    .sparkle{position:absolute;width:2px;height:2px;background:#cfefff;border-radius:50%;opacity:.8;animation:spark 4s ease-in-out infinite}
+    @keyframes spark{
+      0%{transform:translateY(0) scale(1);opacity:.8}
+      50%{transform:translateY(-6px) scale(1.8);opacity:.3}
+      100%{transform:translateY(0) scale(1);opacity:.8}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">...</h1>
-        
-        <div class="message">
-            <p>Привет, спасибо тебе за опыт, который я приобрел с тобой, и многое понял. Но, когда совершал ошибку, я ее повторял, вместо того чтобы быть адекватным. Я не ценил то, что ты мне дала (информацию), я забывал, что ты говорила, и много всего хотел. В конечном итоге имеем, что имеем. Я начал понимать, как это больно, слишком поздно, и ты решила расстаться.</p>
-            
-            <p>Когда был август, я начал понимать ту боль, которую ты чувствовала. Я пытался всё сделать лучше, а получилось хуже.</p>
+  <canvas id="starfield"></canvas>
+  <div class="glowGradient"></div>
 
-<p>
-у меня прошёл тот возраст, когда я себя ненавидел, хотел сдохнуть, со всеми спорил, делал всем хуже, считал себя уродом, а сейчас я перестал считать себя уродом, ненавидеть себя, говорить. что я хочу сдохнуть и тд.
-</p>
-            
-            <p>Тебе хотелось сделать пирсинг, а я начал писать, что это плохо. Скорее всего, если бы я такое не писал, так бы всё и осталось, но меня раздражает пирсинг, и я написал, что лучше без него ты будешь выглядеть. Это закончилось плохо... Надеюсь, твой будущий муж / парень будет не против этого, а меня бесят пирсинги.</p>
-
-            <p>Может, зря поспешили, могли позже расстаться, но ты так решила, что больше не встречаемся. У меня в переходном возрасте было всё плохо, я всем надоедал, всех бесил, со всеми спорил. Сейчас уже этого почти нет, и я не знаю, что дальше делать. Может, ты знаешь, что делать? (напиши в тг)</p>
-            
-            <p>Больше я тебе не буду мешать жить и развиваться, не буду тянуть вниз, как Лиза (про Сашу не знаю). Не будешь тратить на меня нервы и больше не будешь ссориться со мной, будешь учиться, чтобы поступить. Не будешь мне писать, что даст тебе больше времени на учебу. Будешь спокойна и не будешь тратить нервы, чтобы что-то мне сказать.</p>
-            
-            <p class="last-message">Можешь, пожалуйста, сказать, будешь со мной общаться или полностью отдаляемся и не будем обращать внимание друг на друга? Напиши в ТГ.</p>
-        </div>
+  <header>
+    <div class="nav">
+      <div class="logo"><div class="dot"></div> COSMOS</div>
+      <div class="tabs">
+        <button class="btn" onclick="scrollToId('about')">О космосе</button>
+        <button class="btn" onclick="scrollToId('people')">Космонавты</button>
+        <button class="btn accent" onclick="scrollToId('games')">Игры</button>
+      </div>
     </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Космос: красота, смысл и игра</h1>
+      <p class="subtitle">Мы смотрим вверх не только ради ответов — но и ради вопросов. Тут ты найдёшь вдохновляющие истории, мягкие анимации и мини‑игры, чтобы почувствовать движение, риск и радость исследования.</p>
+      <div class="cta">
+        <button class="btn accent" onclick="scrollToId('games')">Перейти к играм</button>
+        <button class="btn" onclick="scrollToId('about')">Узнать больше</button>
+      </div>
+      <div class="astronaut"></div>
+      <div class="orbit">
+        <div class="planet"></div>
+        <div class="planet p2"></div>
+      </div>
+      <div class="sparkle" style="left:14%;top:52%"></div>
+      <div class="sparkle" style="left:64%;top:18%"></div>
+      <div class="sparkle" style="left:82%;top:72%"></div>
+    </section>
+
+    <section id="about">
+      <div class="card">
+        <h3>Что такое космос</h3>
+        <p>Космос — это не пустота, а бесконечное множество историй: звёзды рождаются и умирают, планеты танцуют в гравитационных орбитах, галактики сталкиваются и переплетаются. Он красив и равнодушен одновременно, и именно это делает его честным зеркалом наших мечтаний.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Звёзды</h3>
+            <p>Звезда — это баланс: гравитация сжимает, термоядерные реакции выталкивают. Когда баланс ломается — рождается сверхновая, сеющая элементы, из которых сделаны мы.</p>
+            <span class="tag">Сверхновые</span><span class="tag">Красные гиганты</span><span class="tag">Белые карлики</span>
+          </div>
+          <div class="card">
+            <h3>Планеты</h3>
+            <p>Скальные миры и газовые гиганты — у каждого свой характер. Где-то может быть океан метана, а где-то — ледяные перья, растущие в тени колец.</p>
+            <span class="tag">Экзопланеты</span><span class="tag">Кольца</span><span class="tag">Атмосферы</span>
+          </div>
+          <div class="card">
+            <h3>Галактики</h3>
+            <p>Спиральные, эллиптические, неправильные — формы как у мыслей. Мы живём в Млечном Пути, но он лишь один из миллиардов, каждая со своей историей.</p>
+            <span class="tag">Млечный Путь</span><span class="tag">Тёмная материя</span><span class="tag">Кластеры</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="people">
+      <div class="card">
+        <h3>Люди в космосе</h3>
+        <p>Космонавты — это смесь инженерии и поэзии: дисциплина, чтобы выжить, и любопытство, чтобы лететь. За каждым полётом — тренировки, симуляции, и тысячи тихих решений, принятых заранее.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Подготовка</h3>
+            <p>Годы физической и психологической подготовки: центрифуги, невесомость, отработка отказов. Учишься доверять экипажу и себе, когда всё идёт не по плану.</p>
+            <span class="tag">Невесомость</span><span class="tag">Симуляторы</span><span class="tag">Выносливость</span>
+          </div>
+          <div class="card">
+            <h3>Полёт</h3>
+            <p>Запуск — мгновение, которое меняет масштаб. В орбите — рутина с видом на планету: наука, ремонт, связь, и редкие минуты, когда просто смотришь в иллюминатор.</p>
+            <span class="tag">МКС</span><span class="tag">Орбита</span><span class="tag">Наука</span>
+          </div>
+          <div class="card">
+            <h3>Возвращение</h3>
+            <p>Переход от невесомости к гравитации — испытание для тела. Но дома ждёт та самая тишина, в которой слышно, зачем ты летал.</p>
+            <span class="tag">Посадка</span><span class="tag">Реабилитация</span><span class="tag">Команда</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="games" class="games">
+      <div class="card">
+        <h3>Игры</h3>
+        <p class="accentText">Выбери игру и нажми «Старт». Игры простые, но цепляют: реакция, знание и чувство баланса.</p>
+
+        <div class="game-select">
+          <button class="btn" onclick="selectGame('runner')">Астероидный бег</button>
+          <button class="btn" onclick="selectGame('quiz')">Космо‑квиз</button>
+          <button class="btn" onclick="selectGame('lander')">Посадка ракеты</button>
+        </div>
+
+        <!-- Runner -->
+        <div id="game-runner" class="game">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn accent" onclick="runner.start()">Старт</button>
+            <span class="pill good">Управление: ← → для перемещения</span>
+          </div>
+          <canvas id="runnerCanvas" class="game-canvas"></canvas>
+          <div class="status" id="runnerStatus"></div>
+        </div>
+
+        <!-- Quiz -->
+        <div id="game-quiz" class="game">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn accent" onclick="quiz.start()">Старт</button>
+            <span class="pill good">Ответь на вопросы и набери максимум очков</span>
+          </div>
+          <div id="quizBox" class="card" style="margin-top:12px"></div>
+          <div class="status" id="quizStatus"></div>
+        </div>
+
+        <!-- Lander -->
+        <div id="game-lander" class="game">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn accent" onclick="lander.start()">Старт</button>
+            <span class="pill good">Управление: ↑ — тяга, мягко приземлись</span>
+          </div>
+          <canvas id="landerCanvas" class="game-canvas"></canvas>
+          <div class="status" id="landerStatus"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    Сделано с любовью к бесконечному. Если хочешь — добавим новые уровни и эффекты.
+  </div>
+
+  <script>
+    /* Smooth scroll */
+    function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+    /* Game selector */
+    function selectGame(key){
+      document.querySelectorAll('.game').forEach(g=>g.classList.remove('active'));
+      if(key==='runner') document.getElementById('game-runner').classList.add('active');
+      if(key==='quiz') document.getElementById('game-quiz').classList.add('active');
+      if(key==='lander') document.getElementById('game-lander').classList.add('active');
+      scrollToId('games');
+    }
+
+    /* Starfield background */
+    const starCanvas = document.getElementById('starfield');
+    const sctx = starCanvas.getContext('2d');
+    let stars = [], sw, sh, mouseX=0, mouseY=0;
+    function resizeStars(){
+      sw = starCanvas.width = window.innerWidth;
+      sh = starCanvas.height = window.innerHeight;
+      const count = Math.min(300, Math.floor(sw*sh/6000));
+      stars = Array.from({length:count}).map(()=>({
+        x: Math.random()*sw, y: Math.random()*sh,
+        r: Math.random()*1.6+0.2, tw: Math.random()*Math.PI*2,
+        spd: Math.random()*0.3+0.05
+      }));
+    }
+    window.addEventListener('resize', resizeStars);
+    window.addEventListener('mousemove', e=>{mouseX=e.clientX;mouseY=e.clientY});
+    function drawStars(){
+      sctx.clearRect(0,0,sw,sh);
+      for(const s of stars){
+        s.tw += 0.02;
+        const parallaxX = (mouseX - sw/2) * 0.005;
+        const parallaxY = (mouseY - sh/2) * 0.005;
+        const twinkle = (Math.sin(s.tw)*0.5+0.5)*0.8 + 0.2;
+        sctx.beginPath();
+        sctx.arc(s.x+parallaxX, s.y+parallaxY, s.r*twinkle, 0, Math.PI*2);
+        sctx.fillStyle = 'rgba(207,239,255,0.9)';
+        sctx.fill();
+      }
+      requestAnimationFrame(drawStars);
+    }
+    resizeStars(); drawStars();
+
+    /* Game 1: Asteroid Runner */
+    const runner = (()=> {
+      const canvas = document.getElementById('runnerCanvas');
+      const ctx = canvas.getContext('2d');
+      const status = document.getElementById('runnerStatus');
+      let W, H, ship, asteroids, keys, running, score, lastSpawn, lastTime;
+
+      function resize(){W = canvas.width = canvas.clientWidth; H = canvas.height = 420;}
+      window.addEventListener('resize', resize); resize();
+
+      function reset(){
+        ship = {x: W/2, y: H-70, w: 34, h: 20, speed: 6};
+        asteroids = [];
+        keys = {left:false,right:false};
+        running = true;
+        score = 0; lastSpawn = 0; lastTime = performance.now();
+        status.textContent = 'Избегай астероидов. Чем дольше — тем больше очков.';
+      }
+      function spawnAsteroid(){
+        const size = Math.random()*36+16;
+        asteroids.push({
+          x: Math.random()*(W-size), y: -size, w:size, h:size,
+          vy: Math.random()*2.2+1.2, vx: Math.random()*1.4-0.7,
+          rot: Math.random()*Math.PI*2, vr: Math.random()*0.06-0.03
+        });
+      }
+      function input(){
+        if(keys.left) ship.x -= ship.speed;
+        if(keys.right) ship.x += ship.speed;
+        ship.x = Math.max(6, Math.min(W-ship.w-6, ship.x));
+      }
+      function update(dt){
+        // spawn
+        if(performance.now()-lastSpawn > 600) {spawnAsteroid(); lastSpawn = performance.now();}
+        // move asteroids
+        for(const a of asteroids){
+          a.y += a.vy; a.x += a.vx; a.rot += a.vr;
+        }
+        asteroids = asteroids.filter(a=>a.y < H+60);
+        // collision
+        for(const a of asteroids){
+          if(Math.abs((a.x+a.w/2) - (ship.x+ship.w/2)) < (a.w/2 + ship.w/2*0.8) &&
+             Math.abs((a.y+a.h/2) - (ship.y+ship.h/2)) < (a.h/2 + ship.h/2*0.8)){
+            running = false;
+            status.innerHTML = `<span class="pill bad">Столкновение!</span> Очки: ${Math.floor(score)}. Нажми «Старт», чтобы сыграть снова.`;
+          }
+        }
+        score += dt*0.06;
+      }
+      function draw(){
+        ctx.clearRect(0,0,W,H);
+        // background glow lanes
+        for(let i=0;i<6;i++){
+          const y = (i*80 + (performance.now()/20)%120)-120;
+          ctx.fillStyle = `rgba(124,240,255,${0.05 + i*0.01})`;
+          ctx.fillRect(0,y,W,4);
+        }
+        // ship
+        ctx.save();
+        ctx.translate(ship.x, ship.y);
+        ctx.fillStyle = '#7cf0ff';
+        ctx.fillRect(0,0,ship.w,ship.h);
+        ctx.fillStyle = '#0c132e';
+        ctx.fillRect(4,3,ship.w-8,ship.h-6);
+        // thrusters
+        ctx.fillStyle = '#ff7cf0';
+        ctx.fillRect(ship.w/2-4, ship.h, 8, 10);
+        ctx.restore();
+        // asteroids
+        for(const a of asteroids){
+          ctx.save();
+          ctx.translate(a.x+a.w/2, a.y+a.h/2);
+          ctx.rotate(a.rot);
+          ctx.fillStyle = '#8899aa';
+          ctx.beginPath();
+          ctx.moveTo(-a.w/2, -a.h/2);
+          ctx.lineTo(a.w/2, -a.h/2);
+          ctx.lineTo(a.w/2, a.h/2);
+          ctx.lineTo(-a.w/2, a.h/2);
+          ctx.closePath();
+          ctx.fill();
+          ctx.fillStyle = 'rgba(12,19,46,0.35)';
+          ctx.fillRect(-a.w/4, -a.h/4, a.w/2, a.h/2);
+          ctx.restore();
+        }
+        // score
+        ctx.fillStyle = 'rgba(234,247,255,0.9)';
+        ctx.font = '600 16px Inter';
+        ctx.fillText(`Очки: ${Math.floor(score)}`, 10, 24);
+      }
+      function step(t){
+        const dt = Math.min(32, t-lastTime); lastTime = t;
+        if(running){input(); update(dt); draw(); requestAnimationFrame(step);}
+        else {draw();}
+      }
+      document.addEventListener('keydown', e=>{
+        if(e.key==='ArrowLeft') keys.left = true;
+        if(e.key==='ArrowRight') keys.right = true;
+      });
+      document.addEventListener('keyup', e=>{
+        if(e.key==='ArrowLeft') keys.left = false;
+        if(e.key==='ArrowRight') keys.right = false;
+      });
+
+      return {
+        start(){
+          reset(); requestAnimationFrame(step);
+        }
+      }
+    })();
+
+    /* Game 2: Quiz */
+    const quiz = (()=> {
+      const box = document.getElementById('quizBox');
+      const status = document.getElementById('quizStatus');
+      const questions = [
+        {q:'Как называется наша галактика?', a:['Туманность Андромеды','Млечный Путь','Крабовидная туманность'], correct:1},
+        {q:'Кто первым полетел в космос?', a:['Нил Армстронг','Юрий Гагарин','Валентина Терешкова'], correct:1},
+        {q:'Что удерживает планеты на орбитах?', a:['Электромагнетизм','Гравитация','Давление света'], correct:1},
+        {q:'Где находится МКС?', a:['На Луне','На орбите Земли','На орбите Марса'], correct:1},
+        {q:'Что такое экзопланета?', a:['Планета за пределами Солнечной системы','Карликовая планета','Спутник Юпитера'], correct:0}
+      ];
+      let idx=0, score=0;
+
+      function render(){
+        if(idx>=questions.length){
+          box.innerHTML = `<h3>Итог</h3><p>Ты набрал ${score} из ${questions.length}. ${score>3 ? 'Отлично!' : 'Хочешь попробовать еще раз?'}</p>`;
+          status.innerHTML = `<span class="pill ${score>3?'good':'bad'}">${score>3?'Хороший результат':'Можно лучше'}</span>`;
+          return;
+        }
+        const q = questions[idx];
+        box.innerHTML = `<h3>Вопрос ${idx+1}</h3><p>${q.q}</p>` + q.a.map((opt,i)=>
+          `<button class="btn" style="margin:6px 6px 0 0" onclick="quiz.answer(${i})">${opt}</button>`
+        ).join('');
+        status.textContent = `Счёт: ${score}`;
+      }
+      return {
+        start(){idx=0;score=0;render();},
+        answer(i){
+          const q = questions[idx];
+          if(i===q.correct){score++; status.textContent = `Верно! Счёт: ${score}`;}
+          else {status.textContent = `Мимо. Счёт: ${score}`;}
+          idx++; render();
+        }
+      }
+    })();
+
+    /* Game 3: Lunar Lander */
+    const lander = (()=> {
+      const canvas = document.getElementById('landerCanvas');
+      const ctx = canvas.getContext('2d');
+      const status = document.getElementById('landerStatus');
+      let W,H, y, vy, thrust, running, last, groundY;
+
+      function resize(){W = canvas.width = canvas.clientWidth; H = canvas.height = 420; groundY = H-60;}
+      window.addEventListener('resize', resize); resize();
+
+      document.addEventListener('keydown', e=>{if(e.key==='ArrowUp') thrust = 0.08});
+      document.addEventListener('keyup', e=>{if(e.key==='ArrowUp') thrust = 0});
+
+      function reset(){
+        y = 40; vy = 0.2; thrust = 0; running = true; last = performance.now();
+        status.textContent = 'Удерживай тягу (↑), чтобы замедлить падение. Посади ракету мягко!';
+      }
+      function update(dt){
+        const g = 0.06;
+        vy += (g - thrust) * dt*0.06;
+        y += vy;
+        if(y+50 >= groundY){
+          running = false;
+          const speed = vy;
+          const safe = speed < 0.6;
+          status.innerHTML = safe
+            ? `<span class="pill good">Мягкая посадка!</span> Скорость: ${speed.toFixed(2)}`
+            : `<span class="pill bad">Жесткая посадка.</span> Скорость: ${speed.toFixed(2)} Нажми «Старт», чтобы попытаться снова.`;
+          y = groundY-50;
+          vy = 0;
+        }
+      }
+      function draw(){
+        ctx.clearRect(0,0,W,H);
+        // sky gradient
+        const grad = ctx.createLinearGradient(0,0,0,H);
+        grad.addColorStop(0,'#030616'); grad.addColorStop(1,'#0a1028');
+        ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+        // ground
+        ctx.fillStyle = '#1b223f'; ctx.fillRect(0,groundY,W,60);
+        // rocket
+        ctx.save();
+        ctx.translate(W/2-18, y);
+        ctx.fillStyle = '#eaf7ff'; ctx.fillRect(0,0,36,50);
+        ctx.fillStyle = '#0c132e'; ctx.fillRect(6,10,24,22);
+        // flame
+        if(thrust>0){
+          ctx.fillStyle = '#ff7cf0';
+          ctx.beginPath();
+          ctx.moveTo(18,50);
+          ctx.lineTo(6,62);
+          ctx.lineTo(30,62);
+          ctx.closePath(); ctx.fill();
+        }
+        ctx.restore();
+        // HUD
+        ctx.fillStyle = 'rgba(234,247,255,0.9)';
+        ctx.font = '600 16px Inter';
+        ctx.fillText(`Скорость: ${vy.toFixed(2)}`, 10, 24);
+        ctx.fillText(`Тяга: ${thrust>0?'ВКЛ':'ВЫКЛ'}`, 10, 46);
+      }
+      function step(t){
+        const dt = Math.min(32, t-last); last = t;
+        if(running){update(dt); draw(); requestAnimationFrame(step);}
+        else {draw();}
+      }
+      return {
+        start(){reset(); requestAnimationFrame(step);}
+      }
+    })();
+  </script>
 </body>
 </html>
